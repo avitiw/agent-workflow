@@ -1,0 +1,24 @@
+{
+  "providers": [
+    {
+      "name": "anthropic",
+      "type": "Anthropic",
+      "apiKey": "${ANTHROPIC_API_KEY}",
+      "defaultModel": "claude-haiku-4-5"
+    },
+    {
+      "name": "ollama-local",
+      "type": "Ollama",
+      "baseUrl": "http://localhost:11434",
+      "defaultModel": "qwen3:8b"
+    },
+    {
+      "name": "groq",
+      "type": "OpenAICompatible",
+      "baseUrl": "https://api.groq.com/openai",
+      "apiKey": "${GROQ_API_KEY}",
+      "defaultModel": "llama-3.3-70b-versatile"
+    }
+  ],
+  "activeProvider": "ollama-local"
+}
