@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>AgentCore</AssemblyName>
+    <RootNamespace>AgentCore</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Types.fs" />
+        <Compile Include="Memory.fs" />
+        <Compile Include="Error.fs" />
+        <Compile Include="Tools.fs" />
+        <Compile Include="PRoviders/IInferenceProvider.fs" />
+        <!-- Config record types (no IO, no JSON dependency) -->
+       <Compile Include="Config/ConfigTypes.fs" />
+
+      <!-- Config loading: .env + providers.json → AppConfig on the Ok rail -->
+      <Compile Include="Config/Config.fs" />
+       <Compile Include="Core.fs" />
+            
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dotenv.net" Version="4.0.1" /> 
+    <PackageReference Include="System.Text.Json" Version="10.0.5" />
+  </ItemGroup>
+
+</Project>
