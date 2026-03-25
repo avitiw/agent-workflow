@@ -3,4 +3,7 @@
   <Folder Name="/src/core/">
     <Project Path="src/core/agent-workflow-core.fsproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AgentCoreTests/AgentCoreTests.fsproj" />
+  </Folder>
 </Solution>
