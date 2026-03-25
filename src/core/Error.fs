@@ -33,6 +33,9 @@ type AppError =
     | ConfigErr   of ConfigError
     | ProviderErr of ProviderError
     | ToolErr     of ToolError
+    | PlannerErr     of message: string   // Phase 1: failed to produce a valid plan
+    | ExecutorErr    of message: string   // Phase 2: task execution failure
+    | SynthesizerErr of message: string   // Phase 3: failed to synthesize final report
     | MaxTurnsExceeded
     | Unexpected  of message: string
 
@@ -41,7 +44,9 @@ type AppError =
 let configErr   e = Error (ConfigErr e)
 let providerErr e = Error (ProviderErr e)
 let toolErr     e = Error (ToolErr e)
-
+let plannerErr   m = Error (PlannerErr m)
+let executorErr  m = Error (ExecutorErr m)
+let synthErr     m = Error (SynthesizerErr m)
 // ---------------------------------------------------------------------------
 // AsyncResult<'a> — the core monadic type
 // ---------------------------------------------------------------------------
