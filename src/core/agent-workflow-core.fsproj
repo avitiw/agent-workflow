@@ -12,7 +12,7 @@
         <Compile Include="Memory.fs" />
         <Compile Include="Error.fs" />
         <Compile Include="Tools.fs" />
-        <Compile Include="PRoviders/IInferenceProvider.fs" />
+        <Compile Include="Providers/IInferenceProvider.fs" />
         <!-- Config record types (no IO, no JSON dependency) -->
        <Compile Include="Config/ConfigTypes.fs" />
 
