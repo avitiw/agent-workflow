@@ -27,15 +27,15 @@ jobs:
       run: |
         dotnet publish src/apps/agent-chat/agent-chat.fsproj \
           -c Release \
-          --no-restore \
-          -o publish/agent-chat
+          -o publish/agent-chat \
+          --self-contained false
 
     - name: Build research-agent
       run: |
         dotnet publish src/apps/research-agent/research-agent.fsproj \
           -c Release \
-          --no-restore \
-          -o publish/research-agent
+          -o publish/research-agent \
+          --self-contained false
 
     - name: Calculate next version
       id: version
