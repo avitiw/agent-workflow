@@ -2,8 +2,12 @@ name: Release
 
 on:
   push:
-    branches: [main]
+    tags:
+      - 'v*'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   release:
@@ -12,8 +16,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -37,45 +39,9 @@ jobs:
           -o publish/research-agent \
           --self-contained false
 
-    - name: Calculate next version
-      id: version
-      shell: bash
-      run: |
-        # Get latest tag (format: vYYYY.MM.DD.NNN)
-        latest=$(git describe --tags --abbrev=0 2>/dev/null || echo "v2000.01.01.000")
-        echo "Latest tag: $latest"
-        
-        # Get today's date
-        today=$(date +%Y.%m.%d)
-        
-        # Extract date from latest tag
-        last_date=$(echo "$latest" | grep -oE '[0-9]{4}\.[0-9]{2}\.[0-9]{2}' || echo "2000.01.01")
-        
-        # Extract counter from latest tag
-        counter=$(echo "$latest" | grep -oE '\.[0-9]{3}$' | tr -d '.' || echo "0")
-        
-        echo "Last date: $last_date"
-        echo "Counter: $counter"
-        
-        # If same day, increment counter; else reset to 1
-        if [ "$today" = "$last_date" ]; then
-          counter=$((counter + 1))
-        else
-          counter=1
-        fi
-        
-        # Format: vYYYY.MM.DD.NNN
-        version="v${today}.$(printf '%03d' $counter)"
-        
-        echo "Version: $version"
-        echo "version=$version" >> $GITHUB_OUTPUT
-
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ steps.version.outputs.version }}
-        name: Release ${{ steps.version.outputs.version }}
-        generate_release_notes: true
         files: |
           publish/agent-chat/*
           publish/research-agent/*
