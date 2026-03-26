@@ -39,11 +39,17 @@ jobs:
           -o publish/research-agent \
           --self-contained false
 
+    - name: Create zip archives
+      run: |
+        cd publish
+        zip -r agent-chat.zip agent-chat/
+        zip -r research-agent.zip research-agent/
+
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          publish/agent-chat/*
-          publish/research-agent/*
+          publish/agent-chat.zip
+          publish/research-agent.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
