@@ -147,7 +147,7 @@ let private parseResponse (json: string) : Result<InferenceResponse, AppError> =
 // ---------------------------------------------------------------------------
 
 type OllamaProvider(baseUrl: string, model: string, ?httpClient: HttpClient) =
-    let client   = defaultArg httpClient (new HttpClient())
+    let client   = defaultArg httpClient (new HttpClient(Timeout = System.Threading.Timeout.InfiniteTimeSpan))
     let endpoint = $"{baseUrl.TrimEnd('/')}/v1/chat/completions"
 
     interface IInferenceProvider with
